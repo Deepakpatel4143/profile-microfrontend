@@ -10,31 +10,31 @@ import {
   Divider
 } from '@mui/material'
 import { Edit as EditIcon, LocationOn, Language, Phone, Email } from '@mui/icons-material'
-import { ProfileData } from '../stores/profileStore'
+import { DashboardData } from '../stores/dashboardStore'
 
-interface ProfileCardProps {
-  profile: ProfileData
+interface DashboardCardProps {
+  dashboard: DashboardData
   onEdit: () => void
 }
 
-export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onEdit }) => {
+export const DashboardCard: React.FC<DashboardCardProps> = ({ dashboard, onEdit }) => {
   return (
     <Card sx={{ maxWidth: 600, mx: 'auto' }}>
       <CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
           <Avatar
-            src={profile.avatar}
+            src={dashboard.avatar}
             sx={{ width: 80, height: 80, mr: 2 }}
           >
-            {profile.firstName[0]}{profile.lastName[0]}
+            {dashboard.firstName[0]}{dashboard.lastName[0]}
           </Avatar>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h4" component="h1">
-              {profile.firstName} {profile.lastName}
+              {dashboard.firstName} {dashboard.lastName}
             </Typography>
-            {profile.bio && (
+            {dashboard.bio && (
               <Typography variant="body1" color="text.secondary">
-                {profile.bio}
+                {dashboard.bio}
               </Typography>
             )}
           </Box>
@@ -44,53 +44,53 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onEdit }) => 
         </Box>
 
         <Box sx={{ mb: 2 }}>
-          {profile.email && (
+          {dashboard.email && (
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
               <Email sx={{ mr: 1, color: 'text.secondary' }} />
-              <Typography variant="body2">{profile.email}</Typography>
+              <Typography variant="body2">{dashboard.email}</Typography>
             </Box>
           )}
-          {profile.phone && (
+          {dashboard.phone && (
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
               <Phone sx={{ mr: 1, color: 'text.secondary' }} />
-              <Typography variant="body2">{profile.phone}</Typography>
+              <Typography variant="body2">{dashboard.phone}</Typography>
             </Box>
           )}
-          {profile.location && (
+          {dashboard.location && (
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
               <LocationOn sx={{ mr: 1, color: 'text.secondary' }} />
-              <Typography variant="body2">{profile.location}</Typography>
+              <Typography variant="body2">{dashboard.location}</Typography>
             </Box>
           )}
-          {profile.website && (
+          {dashboard.website && (
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
               <Language sx={{ mr: 1, color: 'text.secondary' }} />
-              <Typography variant="body2">{profile.website}</Typography>
+              <Typography variant="body2">{dashboard.website}</Typography>
             </Box>
           )}
         </Box>
 
-        {profile.skills.length > 0 && (
+        {dashboard.skills.length > 0 && (
           <>
             <Divider sx={{ mb: 2 }} />
             <Typography variant="h6" gutterBottom>
               Skills
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-              {profile.skills.map((skill) => (
+              {dashboard.skills.map((skill) => (
                 <Chip key={skill} label={skill} size="small" />
               ))}
             </Box>
           </>
         )}
 
-        {profile.experience.length > 0 && (
+        {dashboard.experience.length > 0 && (
           <>
             <Divider sx={{ mb: 2 }} />
             <Typography variant="h6" gutterBottom>
               Experience
             </Typography>
-            {profile.experience.map((exp) => (
+            {dashboard.experience.map((exp) => (
               <Box key={exp.id} sx={{ mb: 2 }}>
                 <Typography variant="subtitle1" fontWeight="bold">
                   {exp.position}

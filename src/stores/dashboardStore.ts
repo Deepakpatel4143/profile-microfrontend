@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { devtools, subscribeWithSelector } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
-export interface ProfileData {
+export interface DashboardData {
   id: string
   firstName: string
   lastName: string
@@ -26,16 +26,16 @@ export interface Experience {
   current: boolean
 }
 
-export interface ProfileState {
-  profile: ProfileData | null
+export interface DashboardState {
+  dashboard: DashboardData | null
   isEditing: boolean
   loading: boolean
   error: string | null
 }
 
-export interface ProfileActions {
-  setProfile: (profile: ProfileData) => void
-  updateProfile: (updates: Partial<ProfileData>) => void
+export interface DashboardActions {
+  setDashboard: (dashboard: DashboardData) => void
+  updateDashboard: (updates: Partial<DashboardData>) => void
   setIsEditing: (isEditing: boolean) => void
   setLoading: (loading: boolean) => void
   setError: (error: string | null) => void
@@ -46,26 +46,26 @@ export interface ProfileActions {
   removeSkill: (skill: string) => void
 }
 
-export type ProfileStore = ProfileState & ProfileActions
+export type DashboardStore = DashboardState & DashboardActions
 
-export const useProfileStore = create<ProfileStore>()(
+export const useDashboardStore = create<DashboardStore>()(
   devtools(
     subscribeWithSelector(
       immer((set) => ({
-        profile: null,
+        dashboard: null,
         isEditing: false,
         loading: false,
         error: null,
         
-        setProfile: (profile) =>
+        setDashboard: (dashboard) =>
           set((state) => {
-            state.profile = profile
+            state.dashboard = dashboard
           }),
           
-        updateProfile: (updates) =>
+        updateDashboard: (updates) =>
           set((state) => {
-            if (state.profile) {
-              Object.assign(state.profile, updates)
+            if (state.dashboard) {
+              Object.assign(state.dashboard, updates)
             }
           }),
           
@@ -86,19 +86,19 @@ export const useProfileStore = create<ProfileStore>()(
           
         addExperience: (experience) =>
           set((state) => {
-            if (state.profile) {
+            if (state.dashboard) {
               const newExperience: Experience = {
                 ...experience,
                 id: crypto.randomUUID(),
               }
-              state.profile.experience.push(newExperience)
+              state.dashboard.experience.push(newExperience)
             }
           }),
           
         updateExperience: (id, updates) =>
           set((state) => {
-            if (state.profile) {
-              const experience = state.profile.experience.find(exp => exp.id === id)
+            if (state.dashboard) {
+              const experience = state.dashboard.experience.find(exp => exp.id === id)
               if (experience) {
                 Object.assign(experience, updates)
               }
@@ -107,26 +107,26 @@ export const useProfileStore = create<ProfileStore>()(
           
         removeExperience: (id) =>
           set((state) => {
-            if (state.profile) {
-              state.profile.experience = state.profile.experience.filter(exp => exp.id !== id)
+            if (state.dashboard) {
+              state.dashboard.experience = state.dashboard.experience.filter(exp => exp.id !== id)
             }
           }),
           
         addSkill: (skill) =>
           set((state) => {
-            if (state.profile && !state.profile.skills.includes(skill)) {
-              state.profile.skills.push(skill)
+            if (state.dashboard && !state.dashboard.skills.includes(skill)) {
+              state.dashboard.skills.push(skill)
             }
           }),
           
         removeSkill: (skill) =>
           set((state) => {
-            if (state.profile) {
-              state.profile.skills = state.profile.skills.filter(s => s !== skill)
+            if (state.dashboard) {
+              state.dashboard.skills = state.dashboard.skills.filter(s => s !== skill)
             }
           }),
       }))
     ),
-    { name: 'profile-store' }
+    { name: 'dashboard-store' }
   )
 )

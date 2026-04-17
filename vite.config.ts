@@ -6,12 +6,12 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: 'profile',
+      name: 'dashboard',
       filename: 'remoteEntry.js',
       exposes: {
-        './App': './src/App'
+        './App': './src/App.tsx'
       },
-      shared: ['react', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled', 'zustand']
+      shared: ['react', 'react-dom']
     })
   ],
   build: {
